@@ -3,4 +3,4 @@
 ## Getting an account
 
 
-[back to root page](README.md)
+[back to root page](../../README.md)
