@@ -21,36 +21,28 @@ Go to [aws console page](aws.amazon.com/console/) and try to sign in. When you h
 
 By default and as a safety measure, you are not allowed to request a GPU node on the AWS cloud. This limit can be changed on an per-account basis. This section documents how.
 
-1. Log into the [aws console page](aws.amazon.com/console/).
+1. Log into the [aws console page](aws.amazon.com/console/).  
+   You should see something like this:  
+   ![](aws-console.png)
 
-You should see something like this:
-
-![](aws-console.png)
-
-2. Click on services
-
+2. Click on services  
 ![](aws-console-services.png)
 
-3. Click on EC2
-
+3. Click on EC2  
 ![](aws-console-services-EC2.png)
 
-4. Click on Limits in the lefthand pane.
-
+4. Click on Limits in the lefthand pane.  
 ![](aws-console-services-EC2-limits.png)
 
-5. Scroll down until you find the desired node configuration
-
+5. Scroll down until you find the desired node configuration  
 ![](aws-console-services-EC2-limits-p2.xlarge.png)
 
 6. Click `Request limit increase`
 
-7. Inside the Limit Request page, choose the Region `EU (Frankfurt)`
-
+7. Inside the Limit Request page, choose the Region `EU (Frankfurt)`  
 ![](aws-console-services-EC2-limits-requests-region.png)
 
-8. Fill in `p2.xlarge` as primary instance type, and `1` as "New limit value"
-
+8. Fill in `p2.xlarge` as primary instance type, and `1` as "New limit value"  
 ![](aws-console-services-EC2-limits-requests-region-alldetails.png)
 
 9. Scroll down and add something to the notes like `GPU nodes required for Deep Learning Training at the 2019 Dresden Deep Learning Hackathon`
