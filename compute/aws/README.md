@@ -9,7 +9,8 @@ If you need an AWS account, contact the workshop organizers. We can create accou
 ``` text
 Welcome to Amazon Web Services
 
-For the next 12 months, you'll have free access to core AWS compute, storage, database, and application services within the limits of the Free Tier.
+For the next 12 months, you'll have free access to core AWS compute, storage, 
+database, and application services within the limits of the Free Tier.
 ```
 
 Go to [aws console page](aws.amazon.com/console/) and try to sign in. When you have provided your email address (which was used to create an accound for you), click `Forgot Password?`. This way, you can set a new password of your liking.
