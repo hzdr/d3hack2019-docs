@@ -7,7 +7,7 @@ This repo will contain helpful hints on how to go about the infrastructure offer
 During the hackathon, we offer 2 main hardware resources that participants and mentors are free to use.
 
 1. [AWS Sagemaker Notebooks](compute/aws/README.md)
-2. Taurus HPC cluster, Machine Learning Partition
+2. [Taurus HPC cluster](compute/taurus/README.md), Machine Learning Partition
 
 ## LICENSE
 
