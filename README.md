@@ -1,6 +1,6 @@
 # Dresden Deep Learning Hackathon 2019 - Technical Documentation
 
-This repo will contain helpful hints on how to go about the infrastructure offered at the [d3hack2019](https://indico.mpi-cbg.de/e/d3hack2019). Feel free to open issues, send PRs or contribute in any other way. 
+This repo contains hints and documentation to help teams participate in the [d3hack2019](https://indico.mpi-cbg.de/e/d3hack2019). Topics covere are the infrastructure offered, tips and tricks applying machine learning and potentially other helpful information to make each team as productive as possible. Feel free to open issues, send PRs or contribute in any other way to this material.
 
 ## Compute Infrastructure
 
