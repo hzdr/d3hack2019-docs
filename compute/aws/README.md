@@ -50,6 +50,21 @@ By default and as a safety measure, you are not allowed to request a GPU node on
 
 10. Click `Submit` at the very bottom of the page.
 
+## Running network training on a powerful instance
+
+The workflow recommended by AWS staff is, that you create notebook instances on lightweight instances, e.g. `ml.t2.medium`, and work with these to build up your network. Once you are ready to train your network, you send this network to a more powerful instance, e.g. `ml.m4.xlarge`.
+
+This workflow is aimed to reduce overall cost and is documented well on [this webpage](https://aws.amazon.com/de/getting-started/tutorials/build-train-deploy-machine-learning-model-sagemaker/).
+
+A central prerequisite to this workflow is, that your data is available as a S3 bucket.
+
+## Uploading a data set as a S3 bucket
+
+Coming soon.
+
+## Permissions of a S3 bucket
+
+
 
 ## References
 
