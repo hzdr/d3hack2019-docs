@@ -1,13 +1,15 @@
 # Taurus HPC cluster
 
-Using taurus for machine learning is possible through 2 main avenues:
+Using taurus for machine learning is possible through two main avenues:
 
 1. Using their [jupyterhub service](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/JupyterHub) (you can spawn jupyterlab and standard jupyter notebooks)
 2. Using the terminal and submitting [Batch Jobs](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/Slurm) to Slurm
 
+The official documentation for using `taurus` is available on [this wiki](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/WebHome). If there are problems, that cannot be solved by people at the hackathon, please create a ticket with hpcsupport of `taurus` by sending a message to `hpcsupport@zih.tu-dresden.de`.
+
 ## Getting an account
 
-Accounts have already been attributed to each Email-Address. When you receive your login, it will be secured with a generic password. The first thing you'll need to do, is change this password [here](https://selfservice.zih.tu-dresden.de/l/index.php/pswd).
+Accounts have already been attributed to each email address. When you receive your login, it will be secured with a generic password. The first thing you'll need to do, is change this password [here](https://selfservice.zih.tu-dresden.de/l/index.php/pswd).
 
 Each team has its own project, like `p_gpuhack2` or `p_gpuhack18_1`. A project on taurus is needed to administer compute and storage budget. When submitting batch jobs, this information may be required during invocation of `sbatch` or `srun`. For a first time user of taurus, this is unlikely to be of any importance.
 
