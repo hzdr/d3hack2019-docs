@@ -102,7 +102,7 @@ Kind regards,
 Danny Rotscher
 ```
 
-## Taurus Filesystem details
+# Taurus Filesystem details
 
 To explain, the coarse grain structure of the file system on taurus, let's assume you are user `gpu44` and you belong to project `p_gpuhack18_2`. Then, the following directories are of importance to you:
 
@@ -117,11 +117,23 @@ The team directories on `/scratch` and `/ssd` are set up in a way that all data 
 **IMPORTANT**: On Lustre based systems, it is not a good idea and create directories that have more than 1000-2000 files inside. If you happen to do that and each file is below 1MB, this will impact the performance of the entire file system and thus for all users of the cluster. Please do not create such directories.
 
 
-## Transferring Data
+## Transferring Data onto Taurus
 
-taurus has two specialized data transfer nodes. Both nodes are accessible via `taurusexport.hrsk.tu-dresden.de`. Currently, only `rsync`, `scp` and `sftp` to these nodes will work. A login via SSH is not possible as these nodes are dedicated to data transfers. 
+Taurus has two specialized data transfer nodes. Both nodes are accessible via `taurusexport.hrsk.tu-dresden.de`. Currently, only `rsync`, `scp` and `sftp` to these nodes will work. A login via SSH is not possible as these nodes are dedicated to data transfers. 
 External IP addresses (i.e. IP addresses not on the TU Dresden campus) can be enabled upon request. These requests should be send via eMail to `servicedesk@tu-dresden.de` and mention the IP address range (or node names), the desired protocol and the time frame that the firewall needs to be open. 
 
 More details are available in the [taurus online docs on data exchange](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/SystemTaurus#Transferring_Data_from_47to_Taurus).
+
+# Using Jupyterlab
+
+Taurus offers a [jupyter hub service](https://taurus.hrsk.tu-dresden.de/jupyter) that allows you to spawn jupyterlab on a taurus node. This service is very convenient, but only available on the TU Dresden campus. 
+
+From the hackathon venue (i.e. on the TU Dresden campus), `taurus`'s jupyter service can be reached by connecting to the `eduroam` ESSID on the local wifi. When logged into the wifi, open a browser and open:
+
+``` shell
+https://taurus.hrsk.tu-dresden.de/jupyter
+```
+
+More documentation on how this service can be used is available [here](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/JupyterHub).
 
 [back to root page](../../README.md)
