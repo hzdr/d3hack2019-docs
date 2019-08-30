@@ -136,4 +136,4 @@ https://taurus.hrsk.tu-dresden.de/jupyter
 
 More documentation on how this service can be used is available [here](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/JupyterHub).
 
-[back to root page](../../README.md)
+[[back to root page]](../../README.md)

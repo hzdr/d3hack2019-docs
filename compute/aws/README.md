@@ -55,4 +55,4 @@ By default and as a safety measure, you are not allowed to request a GPU node on
 
 - AWS [EC2 pricing](https://aws.amazon.com/ec2/pricing/on-demand/)
 
-[back to root page](../../README.md)
+[[back to root page]](../../README.md)
