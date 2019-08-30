@@ -119,6 +119,9 @@ The team directories on `/scratch` and `/ssd` are set up in a way that all data 
 
 ## Transferring Data
 
-When you need to transfer large pieces of data (>5 GB), please mind the [taurus docs on data exchange](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/SystemTaurus#Transferring_Data_from_47to_Taurus) to learn how to perform these larger data transfers.
+taurus has two specialized data transfer nodes. Both nodes are accessible via `taurusexport.hrsk.tu-dresden.de`. Currently, only `rsync`, `scp` and `sftp` to these nodes will work. A login via SSH is not possible as these nodes are dedicated to data transfers. 
+External IP addresses (i.e. IP addresses not on the TU Dresden campus) can be enabled upon request. These requests should be send via eMail to `servicedesk@tu-dresden.de` and mention the IP address range (or node names), the desired protocol and the time frame that the firewall needs to be open. 
+
+More details are available in the [taurus online docs on data exchange](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/SystemTaurus#Transferring_Data_from_47to_Taurus).
 
 [back to root page](../../README.md)
