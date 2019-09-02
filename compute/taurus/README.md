@@ -20,12 +20,12 @@ Each team has its own project, like `p_gpuhack2` or `p_gpuhack18_1`. A project o
 From the hackathon venue (i.e. on the TU Dresden campus), `taurus` can be reached by connecting to the `eduroam` ESSID on the local wifi. When logged into the wifi, open a terminal and type:
 
 ``` bash
-$ ssh gpu44@taurus.hrsk.tu-dresden.de
+$ ssh gpu64@taurus.hrsk.tu-dresden.de
 ```
 You will be prompted for your password. When successfull, you should see something like:
 
 ``` bash
-gpu44@taurus.hrsk.tu-dresden.de's password: 
+gpu64@taurus.hrsk.tu-dresden.de's password: 
 Last login: Fri Aug 30 16:27:46 2019 from login1.zih.tu-dresden.de
 --------------------------------------------------------------------------------
 nodes available:	1958/2043	nodes unavailable:	85/2043
@@ -54,7 +54,7 @@ Outside the TU Dresden campus, direct access to taurus is not possible. You have
 1. Make sure you are connected to the internet
 2. Run  
 ``` shell
-$ ssh gpu44@login.zih.tu-dresden.de`
+$ ssh gpu64@login.zih.tu-dresden.de`
 ```
 
 3. You should see something like this:  
@@ -73,16 +73,16 @@ login2 does no longer exist
 ####################################################################
 
 
-gpu44@login:~>
+gpu64@login:~>
 ```
 4. Now issue another `ssh` command in order to enter taurus:  
 ``` shell
-$ ssh gpu44@taurus.hrsk.tu-dresden.de
+$ ssh gpu64@taurus.hrsk.tu-dresden.de
 ```
 You will be prompted for your password. When successfull, you should see something like:
 
 ``` bash
-gpu44@taurus.hrsk.tu-dresden.de's password: 
+gpu64@taurus.hrsk.tu-dresden.de's password: 
 Last login: Fri Aug 30 16:27:46 2019 from login1.zih.tu-dresden.de
 --------------------------------------------------------------------------------
 nodes available:	1958/2043	nodes unavailable:	85/2043
@@ -106,9 +106,9 @@ Danny Rotscher
 
 # Taurus Filesystem details
 
-To explain, the coarse grain structure of the file system on taurus, let's assume you are user `gpu44` and you belong to project `p_gpuhack18_2`. Then, the following directories are of importance to you:
+To explain, the coarse grain structure of the file system on taurus, let's assume you are user `gpu64` and you belong to project `p_gpuhack18_2`. Then, the following directories are of importance to you:
 
-- `/home/gpu44` which is your home directory. This is an NFS mounted distributed file system. It is visible for read/write operations from all nodes across taurus.
+- `/home/gpu64` which is your home directory. This is an NFS mounted distributed file system. It is visible for read/write operations from all nodes across taurus.
 
 - `/scratch/p_gpuhack18_2` This is your team's `/scratch` space. This is a **Lustre**-mounted high performance parallel file system. It is visible for read/write operations from all nodes across taurus. It is very fast and has a capacity of 5.1 PB.
 
