@@ -128,17 +128,89 @@ To explain, the coarse grain structure of the file system on taurus, let's assum
 
 - `/ssd/p_gpuhack18_x` This is your team's `/ssd` space. This is a **Lustre**-mounted high performance parallel file system based on SSD disks. It is visible for read/write operations from all nodes across taurus. It is ultrafast and has a capacity of 43 TB. Please use it only for smaller data (1-10GB), that you need extremely often.
 
-The team directories on `/scratch` and `/ssd` are set up in a way that all data stored there, is visible to the entire team. 
+The file system hierarchy on taurus is well explained on the [taurus wiki](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/FileSystems). 
 
 **IMPORTANT**: On Lustre based systems, it is not a good idea and create directories that have more than 1000-2000 files inside. If you happen to do that and each file is below 1MB, this will impact the performance of the entire file system and thus for all users of the cluster. Please do not create such directories.
 
+## Workspaces
+
+The operators of taurus make it mandatory that you use **workspaces** to manage your data. The details are documented on the [workspaces wiki](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/WorkSpaces). The following will list some short examples on how to use these:
+
+### Manage a Workspace for yourself
+
+To create a workspace you have to inform the system, where you want the workspace (i.e. on which part of the filesystem) and for how long you intend to use it. In the following, I will create a workspace on `/scratch` (the large Lustre file system) for 60 days to come.
+
+``` shell
+$ ws_allocate -F scratch d3hack2019 60
+Info: creating workspace.
+/scratch/ws/gpu64-d3hack2019
+remaining extensions  : 2
+remaining time in days: 60
+```
+
+As the output reads, this workspace can now be found at `/scratch/ws/gpu64-d3hack2019`. Indeed, the workspace was created and is empty:
+
+``` shell
+$ ls -la /scratch/ws/gpu64-d3hack2019
+total 24
+drwx------   2 gpu64    p_gpuhack18_x  4096 Sep  3 11:23 ./
+drwxr-xr-x 221 operator adm           20480 Sep  3 11:23 ../
+```
+
+At any time, you can remove this workspace again:
+
+``` shell
+$ ws_release -F scratch d3hack2019
+$ ls /scratch/ws/gpu64-d3hack2019
+/bin/ls: cannot access /scratch/ws/gpu64-d3hack2019: No such file or directory
+```
+
+As you can see, the workspace was removed and is not present anymore.
+
+### Manage a Workspace for your team
+
+Creating and removing a workspace for anyone in your HPC project, i.e. in your team, follows the same rules as documented above. If you want to create a workspace under `/scratch` for 60 days, do:
+
+``` shell
+$ ws_allocate -F scratch d3hack2019-Ateam 60
+Info: creating workspace.
+/scratch/ws/gpu64-d3hack2019-Ateam
+remaining extensions  : 2
+remaining time in days: 60
+```
+
+As the output reads, this workspace can now be found at `/scratch/ws/gpu64-d3hack2019-Ateam`. Indeed, the workspace was created and is empty:
+
+``` shell
+$ ls -la /scratch/ws/gpu64-d3hack2019-Ateam
+total 24
+drwx------   2 gpu64    p_gpuhack18_x  4096 Sep  3 11:23 ./
+drwxr-xr-x 221 operator adm           20480 Sep  3 11:23 ../
+```
+
+At this point, your team mates will not be able to work with the data stored in this folder. You have to give them permissions to do so. Note, file permissions are a common source of errors. Feel free to dive into online docs like this [wikipedia page](https://en.wikipedia.org/wiki/File_system_permissions#Notation_of_traditional_Unix_permissions). However, if you spend more than 10 minutes trying to work out the right permissions, ask for help!
+
+So let's allow your project/team mates to read and write data into the workspace we have just created. 
+
+``` shell
+$ chmod g+wrx /scratch/ws/gpu64-d3hack2019-Ateam
+```
+
+Your team mates can now `r`ead files that are stored there. They can `w`rite folders and files - this includes removing files/folders, renaming files and folders, ... They can also e`x`ecute files in this folder (this also includes `cd` into subfolders of `/scratch/ws/gpu64-d3hack2019-Ateam`). 
+
+However, only the person that created this workspace (`gpu64` in this example) can release the workspace again.
+
+``` shell
+$ ws_release -F scratch d3hack2019-Ateam
+$ ls /scratch/ws/gpu64-d3hack2019-Ateam
+/bin/ls: cannot access /scratch/ws/gpu64-d3hack2019: No such file or directory
+```
 
 ## Transferring Data onto Taurus
 
-Taurus has two specialized data transfer nodes. Both nodes are accessible via `taurusexport.hrsk.tu-dresden.de`. Currently, only `rsync`, `scp` and `sftp` to these nodes will work. A login via SSH is not possible as these nodes are dedicated to data transfers. 
-External IP addresses (i.e. IP addresses not on the TU Dresden campus) can be enabled upon request. These requests should be send via eMail to `servicedesk@tu-dresden.de` and mention the IP address range (or node names), the desired protocol and the time frame that the firewall needs to be open. 
+Taurus has two specialized data transfer nodes. Both nodes are accessible via `taurusexport.hrsk.tu-dresden.de`. Currently, only `rsync`, `scp` and `sftp` to these nodes will work. A login via SSH is not possible as these nodes are dedicated to data transfers. If you need advice on which software to use and how use it to transfer your data, see the [taurus wiki on moving data](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/ExportNodes).
 
-More details are available in the [taurus online docs on data exchange](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/SystemTaurus#Transferring_Data_from_47to_Taurus).
+External IP addresses (i.e. IP addresses not on the TU Dresden campus) can be enabled upon request. These requests should be send via email to `servicedesk@tu-dresden.de` and mention the IP address range (or node names), the desired protocol and the time frame that the firewall needs to be open. More details on the export nodes are available in the [taurus online docs on data exchange](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/SystemTaurus#Transferring_Data_from_47to_Taurus). 
 
 # Using Jupyterlab
 
