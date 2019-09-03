@@ -246,12 +246,12 @@ import numpy
 
 raw_matrix = None
 
-#               vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv Your team's workspace
+#               vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv Your team's workspace
 with h5py.File("/scratch/ws/gpu64-d3hack2019-Ateam/raw.h5","r") as rawf:
     raw_matrix = rawf['matrix']
     raw_matrix = (raw_matrix - raw_matrix.mean())/raw_matrix.mean()
     
-#               vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv Your own workspace
+#               vvvvvvvvvvvvvvvvvvvvvvvvvvvvv Your own workspace
 with h5py.File("/scratch/ws/gpu64-d3hack2019/normalized.h5","w") as outf:
     outf.create_dataset("normalized", data=raw_matrix)
     
