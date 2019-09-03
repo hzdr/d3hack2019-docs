@@ -37,6 +37,18 @@ jobs suspend:   	0	    |	gpus  in use:		272
 jobs damaged:   	1	    |	
 --------------------------------------------------------------------------------
 #...
+CPU-Quotas as of 2019-09-03 09:08
+             Project    Used(h)   Quota(h)       % Comment
+       p_gpuhack18_x          0      20000     0.0 
+
+Disk-Quotas for /home as of 2019-09-03 09:50
+                User   Used(GiB)  Quota(GiB)       % Comment
+               gpu64         0.0        50.0     0.0 
+
+Disk-Quotas for /projects as of 2019-09-03 09:54
+             Project   Used(GiB)  Quota(GiB)       % Comment
+       p_gpuhack18_x         0.0        50.0     0.0
+#...
 Run 'sinfo -T' for more details.
 Dear Taurus users,
 
@@ -46,6 +58,8 @@ Please check your batch scripts.
 Kind regards,
 Danny Rotscher
 ```
+
+Note, the output above documents a lot of telemetry that might be important to you. Most notably, your HPC project ID is mentioned in the table referring to `Disk-Quotas`. There you see your storage quota for `/home`, which is `50 GB` for user `gpu64` in this example. On top, the storage quota for your project is also listed under `Disk-Quotas for /projects`. In this example, it is `50 GB`.
 
 ### Outside TU Dresden campus 
 
@@ -106,13 +120,13 @@ Danny Rotscher
 
 # Taurus Filesystem details
 
-To explain, the coarse grain structure of the file system on taurus, let's assume you are user `gpu64` and you belong to project `p_gpuhack18_2`. Then, the following directories are of importance to you:
+To explain, the coarse grain structure of the file system on taurus, let's assume you are user `gpu64` and you belong to project `p_gpuhack18_x`. Then, the following directories are of importance to you:
 
 - `/home/gpu64` which is your home directory. This is an NFS mounted distributed file system. It is visible for read/write operations from all nodes across taurus.
 
-- `/scratch/p_gpuhack18_2` This is your team's `/scratch` space. This is a **Lustre**-mounted high performance parallel file system. It is visible for read/write operations from all nodes across taurus. It is very fast and has a capacity of 5.1 PB.
+- `/scratch/p_gpuhack18_x` This is your team's `/scratch` space. This is a **Lustre**-mounted high performance parallel file system. It is visible for read/write operations from all nodes across taurus. It is very fast and has a capacity of 5.1 PB.
 
-- `/ssd/p_gpuhack18_2` This is your team's `/ssd` space. This is a **Lustre**-mounted high performance parallel file system based on SSD disks. It is visible for read/write operations from all nodes across taurus. It is ultrafast and has a capacity of 43 TB. Please use it only for smaller data (1-10GB), that you need extremely often.
+- `/ssd/p_gpuhack18_x` This is your team's `/ssd` space. This is a **Lustre**-mounted high performance parallel file system based on SSD disks. It is visible for read/write operations from all nodes across taurus. It is ultrafast and has a capacity of 43 TB. Please use it only for smaller data (1-10GB), that you need extremely often.
 
 The team directories on `/scratch` and `/ssd` are set up in a way that all data stored there, is visible to the entire team. 
 
