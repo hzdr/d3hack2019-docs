@@ -136,7 +136,7 @@ The file system hierarchy on taurus is well explained on the [taurus wiki](https
 
 The operators of taurus make it mandatory that you use **workspaces** to manage your data. The details are documented on the [workspaces wiki](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/WorkSpaces). The following will list some short examples on how to use these:
 
-### Manage a Workspace for yourself
+### For yourself
 
 To create a workspace you have to inform the system, where you want the workspace (i.e. on which part of the filesystem) and for how long you intend to use it. In the following, I will create a workspace on `/scratch` (the large Lustre file system) for 60 days to come.
 
@@ -167,7 +167,7 @@ $ ls /scratch/ws/gpu64-d3hack2019
 
 As you can see, the workspace was removed and is not present anymore.
 
-### Manage a Workspace for your team
+### For your team
 
 Creating and removing a workspace for anyone in your HPC project, i.e. in your team, follows the same rules as documented above. If you want to create a workspace under `/scratch` for 60 days, do:
 
@@ -214,14 +214,48 @@ External IP addresses (i.e. IP addresses not on the TU Dresden campus) can be en
 
 # Using Jupyterlab
 
-Taurus offers a [jupyter hub service](https://taurus.hrsk.tu-dresden.de/jupyter) that allows you to spawn jupyterlab on a taurus node. This service is very convenient, but only available on the TU Dresden campus. 
+Taurus offers a [jupyter hub service](https://taurus.hrsk.tu-dresden.de/jupyter) that allows you to spawn jupyterlab on a taurus node. This service is very convenient, but only available if your internet-connected device is on the TU Dresden campus. 
 
-From the hackathon venue (i.e. on the TU Dresden campus), `taurus`'s jupyter service can be reached by connecting to the `eduroam` ESSID on the local wifi. When logged into the wifi, open a browser and open:
+From the hackathon venue (i.e. on the TU Dresden campus), `taurus`'s jupyter service can be reached by connecting to the `eduroam` ESSID of the local wifi. When logged into the wifi, open a browser and open:
 
 ``` shell
 https://taurus.hrsk.tu-dresden.de/jupyter
 ```
 
 More documentation on how this service can be used is available [here](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/JupyterHub).
+
+### Global inputs, local outputs
+
+As illuded to in [Workspaces](#workspaces), you have to manage your data in workspaces. Thus, we suggest that you put commonly used data inside a project wide workspace that all team members can access. Anything that you create personally, should land inside your personal workspace. 
+
+For example, say your team's input data is stored as hdf5 files inside `/scratch/ws/gpu64-d3hack2019-Ateam` and the steps of [Workspaces: For your team](#for-your-team) have already been followed. You would like to apply a normalisation to your data and store it into a personal clone of the data. First, you create a workspace for you own:
+
+``` shell
+$ ws_allocate -F scratch d3hack2019 60
+Info: creating workspace.
+/scratch/ws/gpu64-d3hack2019
+remaining extensions  : 2
+remaining time in days: 60
+```
+
+Then, your python code would look like this (untested):
+
+``` python
+import h5py
+import numpy
+
+raw_matrix = None
+
+#               vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv Your team's workspace
+with h5py.File("/scratch/ws/gpu64-d3hack2019-Ateam/raw.h5","r") as rawf:
+    raw_matrix = rawf['matrix']
+    raw_matrix = (raw_matrix - raw_matrix.mean())/raw_matrix.mean()
+    
+#               vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv Your own workspace
+with h5py.File("/scratch/ws/gpu64-d3hack2019/normalized.h5","w") as outf:
+    outf.create_dataset("normalized", data=raw_matrix)
+    
+```
+
 
 [[back to root page]](../../README.md)
