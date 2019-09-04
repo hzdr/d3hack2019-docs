@@ -15,7 +15,9 @@ Each team has its own project, like `p_gpuhack2` or `p_gpuhack18_1`. A project o
 
 ## Login with the terminal
 
-### On TU Dresden campus 
+All required details on how to login to taurus can be found on the [login wiki](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/Login) of the cluster. The following 2 sections provide step-by-step examples assuming you are working with a UNIX like command line.
+
+### On the TU Dresden campus 
 
 From the hackathon venue (i.e. on the TU Dresden campus), `taurus` can be reached by connecting to the `eduroam` ESSID on the local wifi. When logged into the wifi, open a terminal and type:
 
@@ -61,7 +63,7 @@ Danny Rotscher
 
 Note, the output above documents a lot of telemetry that might be important to you. Most notably, your HPC project ID is mentioned in the table referring to `Disk-Quotas`. There you see your storage quota for `/home`, which is `50 GB` for user `gpu64` in this example. On top, the storage quota for your project is also listed under `Disk-Quotas for /projects`. In this example, it is `50 GB`.
 
-### Outside TU Dresden campus 
+### Outside the TU Dresden campus 
 
 Outside the TU Dresden campus, direct access to taurus is not possible. You have to use `ssh` two times in order to enter taurus.
 
@@ -208,9 +210,28 @@ $ ls /scratch/ws/gpu64-d3hack2019-Ateam
 
 ## Transferring Data onto Taurus
 
-Taurus has two specialized data transfer nodes. Both nodes are accessible via `taurusexport.hrsk.tu-dresden.de`. Currently, only `rsync`, `scp` and `sftp` to these nodes will work. A login via SSH is not possible as these nodes are dedicated to data transfers. If you need advice on which software to use and how use it to transfer your data, see the [taurus wiki on moving data](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/ExportNodes).
+Taurus has two specialized data transfer nodes. Both nodes are accessible via `taurusexport.hrsk.tu-dresden.de`. Currently, only `rsync`, `scp` and `sftp` to these nodes will work. A login via SSH is not possible as these nodes are dedicated to data transfers. If you need advice on which software to use and how use it to transfer your data, see the [taurus wiki on moving data](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/ExportNodes). In the following, we assume that we want to transfer the contents of an entire folder called `my_data` from your local machine (be it your laptop or your HPC cluster at your home institute). As the destination, the following assumes that you already created your workspace on taurus at `/scratch/ws/gpu64-d3hack2019` and we'll use that further on.
 
-External IP addresses (i.e. IP addresses not on the TU Dresden campus) can be enabled upon request. These requests should be send via email to `servicedesk@tu-dresden.de` and mention the IP address range (or node names), the desired protocol and the time frame that the firewall needs to be open. More details on the export nodes are available in the [taurus online docs on data exchange](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/SystemTaurus#Transferring_Data_from_47to_Taurus). 
+### Double-hop scp
+
+If you are working from outside the TUD network, you have to transfer your data through a gateway server, called `login.zih.tu-dresden`. This matches what is documented in [Login with the terminal: Outside the TU Dresden campus](#Outside-TU-Dresden-campus).
+
+We researched a command that allows you to tunnel through this machine in one go.
+
+``` shell
+$ scp -o ProxyCommand="ssh gpu64@login.zih.tu-dresden.de nc taurusexport.hrsk.tu-dresden.de 22" -r my_data gpu64@taurusexport.hrsk.tu-dresden.de:/scratch/ws/gpu64-d3hack2019
+```
+
+Feel free to copy and paste the above. Please don't forget to replace `gpu64`, `/scratch/ws/gpu64-d3hack2019` and `my_data` appropriately.
+
+### VPN
+
+You can also access the cluster through VPN. This is documented in general [here](https://tu-dresden.de/zih/dienste/service-katalog/arbeitsumgebung/zugang_datennetz/vpn?set_language=en). When doing so, you can transfer your files as in:
+
+``` shell
+$ scp -r my_data taurusexport.hrsk.tu-dresden.de:/scratch/ws/gpu64-d3hack2019
+```
+
 
 # Using Jupyterlab
 
