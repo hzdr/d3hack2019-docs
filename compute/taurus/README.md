@@ -120,6 +120,39 @@ Kind regards,
 Danny Rotscher
 ```
 
+#### SSH config for automatic proxy jump
+
+In order to avoid having to manually issue two ssh commands each time or having
+to pass extra parameters to perform a proxy jump, you can place the following in
+your `~/.ssh/config`:
+
+```
+Host zih
+ Hostname login2.zih.tu-dresden.de
+ User <username>
+
+Host taurus
+ Hostname taurus.hrsk.tu-dresden.de
+ User <username>
+ ProxyJump zih
+
+Host taurusexport
+ Hostname taurusexport.hrsk.tu-dresden.de
+ User <username>
+ ProxyJump zih
+```
+
+Now you can, e.g.
+```shell
+$ ssh taurus
+```
+or
+```
+$ scp file taurusexport:/scratch/ws/gpu64-d3hack2019/
+$ rsync -vau dir taurusexport:/scratch/ws/gpu64-d3hack2019/
+```
+See below for details about transferring data to taurus.
+
 # Taurus Filesystem details
 
 To explain, the coarse grain structure of the file system on taurus, let's assume you are user `gpu64` and you belong to project `p_gpuhack18_x`. Then, the following directories are of importance to you:
