@@ -255,7 +255,7 @@ We researched a command that allows you to tunnel through this machine in one go
 $ scp -o ProxyCommand="ssh gpu64@login.zih.tu-dresden.de nc taurusexport.hrsk.tu-dresden.de 22" -r my_data gpu64@taurusexport.hrsk.tu-dresden.de:/scratch/ws/gpu64-d3hack2019
 ```
 
-Feel free to copy and paste the above. Please don't forget to replace `gpu64`, `/scratch/ws/gpu64-d3hack2019` and `my_data` appropriately.
+Feel free to copy and paste the above. Please don't forget to replace `gpu64` (with your login), `/scratch/ws/gpu64-d3hack2019` (with the destination directory you want to transfer data to) and `my_data` (with the name of the source directory you want to transfer) appropriately.
 
 ### VPN
 
