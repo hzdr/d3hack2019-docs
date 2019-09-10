@@ -148,7 +148,7 @@ The details for creating a custom "user kernel" in order to load *your* environm
 First get a shell on a taurus `ml` node:
 
 ``` shell
-$ srun --pty -p ml -n 1 -c 2 --mem-per-cpu 5772 -t 08:00:00 bash
+$ srun --pty -p hpdlf -n 1 -c 2 --mem-per-cpu 5772 -t 08:00:00 bash
 ```
 
 Second, get a specific python version that comes with `virtualenv`:
