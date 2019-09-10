@@ -109,27 +109,29 @@ $ deactivate
 ### Using Fast.ai library in Jupyter notebook
 
 First, ssh into Taurus and grab a ML machine (no need for a GPU for this right now), and activate anaconda.
+
 ``` bash
-srun -p ml -n 1 --pty --mem-per-cpu=8000 bash
-module load modenv/ml
-module load PythonAnaconda
-source activate /software/ml/JupyterHub/conda-powerai
+$ srun -p ml -n 1 --pty --mem-per-cpu=8000 bash
+$ module load modenv/ml
+$ module load PythonAnaconda
+$ source activate /software/ml/JupyterHub/conda-powerai
 ```
 Now, we need to make our own virtualenv that we can spin up as a ipython kernel in order to use this environment in jupyterlab:
+
 ``` bash
-mkdir my-kernel
-cd my-kernel/
-virtualenv --system-site-packages fastai-kernel
-source fastai-kernel/bin/activate
-pip install ipykernel
-python -m ipykernel install --user --name fastai-kernel --display-name="fastai-kernel"
+$ mkdir my-kernel
+$ cd my-kernel/
+$ virtualenv --system-site-packages fastai-kernel
+$ source fastai-kernel/bin/activate
+$ pip install ipykernel
+$ python -m ipykernel install --user --name fastai-kernel --display-name="fastai-kernel"
 ```
 
 We now install fastai into this environment. Since some dependencies of fastai did not properly install (e.g. spacy) we will have to install them by hand, like this:
 
 ``` bash
-pip install --no-deps fastai
-pip install dataclasses fastprocess numexpr
+$ pip install --no-deps fastai
+$ pip install dataclasses fastprocess numexpr
 ```
 
 Now, open [jupyter](https://taurus.hrsk.tu-dresden.de/jupyter), select IBM Power, choose at least 1 GPU, choose recommended CPU's and press Spawn. Now, you should see in the "Launcher" tab not only a "python 3" kernel, but also a "fastai-kernel".
@@ -137,6 +139,58 @@ Now, open [jupyter](https://taurus.hrsk.tu-dresden.de/jupyter), select IBM Power
 
 ## x86_64
 
-Conventionel x86_64 nodes. On taurus, there are 2 other partitions that might be of interest for teams, `gpu1` (onld K20m GPUs) and `hpdlf` (16 intel nodes with 3 GTX 1080 cards each).
 
+
+On taurus, there are 2 other partitions that might be of interest for teams, `gpu1` (onld K20m GPUs) and `hpdlf` (16 intel nodes with 3 GTX 1080 cards each).
+
+The details for creating a custom "user kernel" in order to load *your* environment in a jupyter notebooks are detailed out [here](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/JupyterHub). Here is a quick rundown:
+
+First get a shell on a taurus `ml` node:
+
+``` shell
+$ srun --pty -p ml -n 1 -c 2 --mem-per-cpu 5772 -t 08:00:00 bash
+```
+
+Second, get a specific python version that comes with `virtualenv`:
+
+``` shell
+$ module load modenv/ml PythonAnaconda
+```
+
+Third, create a special folder inside your home directory:
+
+``` shell
+$ mkdir user-kernel
+$ cd user-kernel
+```
+
+Create your own venv and use it:
+
+``` shell
+$ python3 -m venv --system-site-packages my-custom-x86
+$ source my-custom-x86/bin/activate
+```
+
+Then install the ipython kernel
+
+``` shell
+$ pip install ipykernel
+$ python -m ipykernel install --user --name my-custom-x86 --display-name="my custom x86 kernel"
+```
+
+Now you can install all that you want:
+
+```
+$ pip3 install torch torch.vision fastai
+$ module load HDF5/1.10.2-fosscuda-2018b
+$ pip install h5py
+```
+
+Leave the environment now.
+
+```
+$ deactivate
+```
+
+This has been tested to work.
 
