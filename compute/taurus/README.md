@@ -7,6 +7,9 @@ Using taurus for machine learning is possible through two main avenues:
 
 The official documentation for using `taurus` is available on [this wiki](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/WebHome). If there are problems, that cannot be solved by people at the hackathon, please create a ticket with hpcsupport of `taurus` by sending a message to `hpcsupport@zih.tu-dresden.de`.
 
+See the following pages for more detailed topics:
+* [packages](sw.md)
+
 ## Getting an account
 
 Accounts have already been attributed to each email address. When you receive your login, it will be secured with a generic password. The first thing you'll need to do, is change this password [here](https://selfservice.zih.tu-dresden.de/l/index.php/pswd).
