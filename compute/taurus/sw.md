@@ -18,7 +18,7 @@ This offers somewhat recent versions of keras, tensorflow and pytorch. This shou
 
 ### Using Conda with the PowerAI stack
 
-First get an interactive shell on a taurusml node. After that, load the modules required to install packages:
+First get a fresh interactive shell on a `taurusml` node. After that, load the modules required to install packages:
 
 ``` shell
 $ module load modenv/ml PythonAnaconda
