@@ -92,7 +92,7 @@ $ python -m ipykernel install --user --name my-custom-kernel --display-name="my 
 At this point, you are free to `module load foo` where `foo` can be any package that you find:
 
 ``` shell
-$ module load HDF5/1.10.5
+$ module load HDF5/1.10.5-gompic-2019a
 $ pip install h5py
 ```
 
