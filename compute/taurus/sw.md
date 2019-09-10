@@ -104,4 +104,29 @@ $ deactivate
 
 **NOTE**: HPC support said that this recipe was not tested thorougly on taurus yet.
 
-
+### Experimental: Horovod on the ML partition
+- Get a shell on the Taurus ML partition:
+  ``` shell
+  $ srun --pty -p ml -n 1 -c 2 --mem-per-cpu 5772 --gres=gpu:1 -t 08:00:00 bash
+  ```
+- Load dependent modules
+  ```bash
+  module load modenv/ml
+  module load OpenMPI/3.1.4-gcccuda-2018b
+  module load PythonAnaconda/3.6
+  module load cuDNN/7.1.4.18-fosscuda-2018b
+  module load CMake/3.11.4-GCCcore-7.3.0
+  NCCL/2.3.7-fosscuda-2018b
+  ```
+- Activate the virtual environment.
+  ```shell
+  $ source /lustre/ssd/ws/gpu46-hackathon-software/.venv/hackathon-kernel/bin/activate
+  ```
+- Open a Python shell. Inside the Python shell you can use Horovod with Torch.
+  ```shell
+  $ python
+  >>> import torch
+  >>> import horovod.torch as hvd
+  >>> hvd.init()
+  >>> torch.cuda.set_device(hvd.local_rank())
+  ```
