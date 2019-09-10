@@ -39,10 +39,19 @@ $ conda info --envs
 To load it do
 
 ```
-$ source activate test-sklearn
+$ conda activate test-sklearn
 ```
 
+To leave the conda environment, you should issue:
+
+```
+$ conda deactivate
+```
+
+
 ### preparing your own kernel to load in jupyter
+
+**WARNING** The following is untested!
 
 The details for creating a custom "user kernel" in order to load *your* environment in a jupyter notebooks are detailed out [here](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/JupyterHub). Here is a quick rundown:
 
