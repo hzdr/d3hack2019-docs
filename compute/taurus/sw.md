@@ -145,10 +145,10 @@ On taurus, there are 2 other partitions that might be of interest for teams, `gp
 
 The details for creating a custom "user kernel" in order to load *your* environment in a jupyter notebooks are detailed out [here](https://doc.zih.tu-dresden.de/hpc-wiki/bin/view/Compendium/JupyterHub). Here is a quick rundown:
 
-First get a shell on a taurus `ml` node:
+First get a shell on a taurus `hpdlf` node:
 
 ``` shell
-$ srun --pty -p hpdlf -n 1 -c 2 --mem-per-cpu 5772 -t 08:00:00 bash
+$ srun --pty -p hpdlf -n 1 -c 2 --gres=gpu:1 --mem-per-cpu 5772 -t 08:00:00 bash
 ```
 
 Second, get a specific python version that comes with `virtualenv`:
