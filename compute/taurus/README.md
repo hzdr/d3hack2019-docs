@@ -315,4 +315,35 @@ with h5py.File("/scratch/ws/gpu64-d3hack2019/normalized.h5","w") as outf:
 ```
 
 
+
+# Using Fast.ai library in Jupyter notebook
+
+First, ssh into Taurus and grab a ML machine (no need for a GPU for this right now), and activate anaconda.
+``` bash
+srun -p ml -n 1 --pty --mem-per-cpu=8000 bash
+module load modenv/ml
+module load PythonAnaconda
+source activate /software/ml/JupyterHub/conda-powerai
+```
+Now, we need to make our own virtualenv that we can spin up as a ipython kernel in order to use this environment in jupyterlab:
+``` bash
+mkdir my-kernel
+cd my-kernel/
+virtualenv --system-site-packages fastai-kernel
+source fastai-kernel/bin/activate
+pip install ipykernel
+python -m ipykernel install --user --name fastai-kernel --display-name="fastai-kernel"
+```
+
+We now install fastai into this environment. Since some dependencies of fastai did not properly install (e.g. spacy) we will have to install them by hand, like this:
+
+``` bash
+pip install --no-deps fastai
+pip install dataclasses fastprocess numexpr
+```
+
+Now, open [jupyter](https://taurus.hrsk.tu-dresden.de/jupyter), select IBM Power, choose at least 1 GPU, choose recommended CPU's and press Spawn. Now, you should see in the "Launcher" tab not only a "python 3" kernel, but also a "fastai-kernel".
+
+
+
 [[back to root page]](../../README.md)
