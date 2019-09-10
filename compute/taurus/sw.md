@@ -1,22 +1,22 @@
 # Software packages
 
-## On the ml partition
-
 Important reads:
 
-- https://towardsdatascience.com/a-guide-to-conda-environments-bc6180fc533
+- [a conda primer](https://towardsdatascience.com/a-guide-to-conda-environments-bc6180fc533)
 
+## PowerAI on `taurusml`
 
 ### Loading the PowerAI software stack
 
 ```
-$ module load PowerAI/1.6.1
+$ module load modenv/ml PythonAnaconda
+$ source activate /software/ml/JupyterHub/conda-powerai 
 ```
 
 This offers somewhat recent versions of keras, tensorflow and pytorch. This should be suitable for most tasks. Installing dependencies with `pip install --user` is not recommended with this stack.
 
 
-### Using Conda with the PowerAI stack
+### Install missing packages from PowerAI stack
 
 First get a fresh interactive shell on a `taurusml` node. After that, load the modules required to install packages:
 
@@ -48,8 +48,7 @@ To leave the conda environment, you should issue:
 $ conda deactivate
 ```
 
-
-### preparing your own kernel to load in jupyter
+### Your own kernel to load in jupyter
 
 **WARNING** The following is untested!
 
@@ -103,5 +102,41 @@ $ deactivate
 ```
 
 **NOTE**: HPC support said that this recipe was not tested thorougly on taurus yet.
+
+
+## Hints for Packages
+
+### Using Fast.ai library in Jupyter notebook
+
+First, ssh into Taurus and grab a ML machine (no need for a GPU for this right now), and activate anaconda.
+``` bash
+srun -p ml -n 1 --pty --mem-per-cpu=8000 bash
+module load modenv/ml
+module load PythonAnaconda
+source activate /software/ml/JupyterHub/conda-powerai
+```
+Now, we need to make our own virtualenv that we can spin up as a ipython kernel in order to use this environment in jupyterlab:
+``` bash
+mkdir my-kernel
+cd my-kernel/
+virtualenv --system-site-packages fastai-kernel
+source fastai-kernel/bin/activate
+pip install ipykernel
+python -m ipykernel install --user --name fastai-kernel --display-name="fastai-kernel"
+```
+
+We now install fastai into this environment. Since some dependencies of fastai did not properly install (e.g. spacy) we will have to install them by hand, like this:
+
+``` bash
+pip install --no-deps fastai
+pip install dataclasses fastprocess numexpr
+```
+
+Now, open [jupyter](https://taurus.hrsk.tu-dresden.de/jupyter), select IBM Power, choose at least 1 GPU, choose recommended CPU's and press Spawn. Now, you should see in the "Launcher" tab not only a "python 3" kernel, but also a "fastai-kernel".
+
+
+## x86_64
+
+Conventionel x86_64 nodes. On taurus, there are 2 other partitions that might be of interest for teams, `gpu1` (onld K20m GPUs) and `hpdlf` (16 intel nodes with 3 GTX 1080 cards each).
 
 
