@@ -2,6 +2,11 @@
 
 ## On the ml partition
 
+Important reads:
+
+- https://towardsdatascience.com/a-guide-to-conda-environments-bc6180fc533
+
+
 ### Loading the PowerAI software stack
 
 ```
@@ -9,6 +14,33 @@ $ module load PowerAI/1.6.1
 ```
 
 This offers somewhat recent versions of keras, tensorflow and pytorch. This should be suitable for most tasks. Installing dependencies with `pip install --user` is not recommended with this stack.
+
+
+### Using Conda with the PowerAI stack
+
+First get an interactive shell on a taurusml node. After that, load the modules required to install packages:
+
+``` shell
+$ module load modenv/ml PythonAnaconda
+```
+
+Use conda to manage your environments and to install packages into them:
+
+```
+$ conda create --name test-sklearn scikit-learn
+```
+
+After this is finished, check if it succeeded:
+
+```
+$ conda info --envs
+```
+
+To load it do
+
+```
+$ source activate test-sklearn
+```
 
 ### preparing your own kernel to load in jupyter
 
@@ -23,7 +55,8 @@ $ srun --pty -p ml -n 1 -c 2 --mem-per-cpu 5772 -t 08:00:00 bash
 Second, get a specific python version that comes with `virtualenv`:
 
 ``` shell
-$ module load Python/3.6.6-fosscuda-2018b
+$ module load modenv/ml PythonAnaconda
+$ source activate /software/ml/JupyterHub/conda-powerai 
 ```
 
 Third, create a special folder inside your home directory:
