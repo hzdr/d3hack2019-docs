@@ -154,7 +154,7 @@ $ srun --pty -p hpdlf -n 1 -c 2 --gres=gpu:1 --mem-per-cpu 5772 -t 08:00:00 bash
 Second, get a specific python version that comes with `virtualenv`:
 
 ``` shell
-$ module load modenv/ml PythonAnaconda
+$ module load Python/3.6.6-fosscuda-2018b
 ```
 
 Third, create a special folder inside your home directory:
