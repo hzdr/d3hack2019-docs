@@ -48,6 +48,54 @@ To leave the conda environment, you should issue:
 $ conda deactivate
 ```
 
+### multi-gpu multi-node training
+
+For those interested in parallelizing training, we found a way to use `horovod` on the power architecture. 
+
+To do so, use the following script with sbatch:
+
+```
+$ cat hvd.sh
+#!/bin/bash -l
+#SBATCH -p ml
+#SBATCH -t 00:05:00
+#SBATCH --ntasks=8
+#SBATCH --ntasks-per-node=1
+#SBATCH --gres=gpu:1
+#SBATCH --mem=0
+#SBATCH -o hvd_hw2_distributed_%J.out
+#SBATCH -e hvd_hw2_distributed_%J.err
+
+module load modenv/ml
+module load OpenMPI/3.1.4-gcccuda-2018b
+module load PythonAnaconda/3.6 
+module load cuDNN/7.1.4.18-fosscuda-2018b
+module load CMake/3.11.4-GCCcore-7.3.0
+module load NCCL/2.3.7-fosscuda-2018b
+
+source /lustre/ssd/ws/gpu46-hackathon-software/.venv/hackathon-kernel/bin/activate
+
+#Note: `python` here is a python3
+srun python hvd.py 
+```
+
+The python script mentioned in the last line of `hvd.sh` looks like this:
+
+```
+$ cat hvd.py
+import horovod.torch as hvd
+hvd.init()
+
+print("Hello from:",hvd.rank())
+```
+
+In order to submit this to taurus, do 
+
+```
+$ sbatch hvd.sh
+```
+
+In the configuration above, this will request 8 GPUs on 8 different nodes. The instructions on how to compile horovod are contained in this [script](install_hvd_taurus_ml.md).
 
 ## Hints for Packages
 
